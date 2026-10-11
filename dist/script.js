@@ -54,6 +54,13 @@ const courseData = {
 const modal = document.getElementById('course-modal');
 const modalContent = document.getElementById('modal-content');
 const modalClose = document.querySelector('.modal-close');
+function openDialog(d) {
+  try {
+    if (!d.open) d.showModal();
+  } catch (_) {
+    d.setAttribute('open', ''); // graceful fallback for browsers without <dialog> support
+  }
+}
 document.querySelectorAll('.course-details').forEach(btn => btn.addEventListener('click', () => {
   const d = courseData[btn.dataset.course];
   modalContent.innerHTML = `
@@ -65,7 +72,7 @@ document.querySelectorAll('.course-details').forEach(btn => btn.addEventListener
       <div class="modal-points">${d.points.map(p => `<span>${p}</span>`).join('')}</div>
       <a class="btn btn--primary btn--lg" target="_blank" rel="noopener" href="https://wa.me/916304071731?text=${encodeURIComponent('Hi Shringar, I am interested in ' + d.kicker + '. Please share admission details.')}">Ask about this course</a>
     </div>`;
-  modal.showModal();
+  openDialog(modal);
 }));
 modalClose?.addEventListener('click', () => modal.close());
 modal?.addEventListener('click', (e) => {
@@ -140,7 +147,7 @@ document.querySelectorAll('.testimonial-card').forEach(card => {
   card.addEventListener('click', async () => {
     testimonialPlayer.pause();
     testimonialPlayer.src = card.dataset.video;
-    testimonialModal.showModal();
+    openDialog(testimonialModal);
     try { await testimonialPlayer.play(); } catch (_) { /* Controls remain available if playback is blocked. */ }
   });
 });
@@ -173,7 +180,7 @@ window.addEventListener('load', () => {
   if (!campaignModal || campaignModal.open) return;
   window.setTimeout(() => {
     if (!campaignModal.open) {
-      campaignModal.showModal();
+      openDialog(campaignModal);
       trackEvent('campaign_view');
     }
   }, 900);
