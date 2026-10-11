@@ -98,7 +98,7 @@ leadForm?.addEventListener('submit', (e) => {
       body: new URLSearchParams({ 'form-name': 'admissions', name, phone, course }).toString()
     });
   } catch (_) { /* Netlify record must never block the WhatsApp redirect. */ }
-  const msg = `Hi Shringar, I am ${name} and I am interested in ${course}.`;
+  const msg = `Hi Shringar, I am ${name} and I am interested in ${course}.\nMy phone number is ${phone}.`;
   window.open(`https://wa.me/916304071731?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
 });
 
