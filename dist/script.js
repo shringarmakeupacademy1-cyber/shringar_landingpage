@@ -105,3 +105,19 @@ testimonialModal?.addEventListener('cancel', event => {
   event.preventDefault();
   closeTestimonial();
 });
+
+const campaignModal = document.getElementById('campaign-modal');
+const campaignClose = document.querySelector('.campaign-close');
+function closeCampaign() {
+  if (campaignModal?.open) campaignModal.close();
+}
+campaignClose?.addEventListener('click', closeCampaign);
+campaignModal?.addEventListener('click', (event) => {
+  if (event.target === campaignModal) closeCampaign();
+});
+window.addEventListener('load', () => {
+  if (!campaignModal || campaignModal.open) return;
+  window.setTimeout(() => {
+    if (!campaignModal.open) campaignModal.showModal();
+  }, 900);
+});
