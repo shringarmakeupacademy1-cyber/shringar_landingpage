@@ -229,6 +229,7 @@ details[open] summary:after{content:"–"}details p{margin:0 0 18px;color:var(--
 .lead-form input,.lead-form select{width:100%;border:1px solid #ead7dc;border-radius:13px;padding:13px 14px;background:#fffaf9;color:var(--ink);outline:none}
 .lead-form input:focus,.lead-form select:focus{border-color:#c9778b;box-shadow:0 0 0 3px rgba(201,119,139,.12)}
 .lead-form small{color:var(--muted);font-size:10px;text-align:center}
+.lead-form .form-error{color:#a33b56;font-size:12px;font-weight:700;text-align:left}
 
 footer{background:#26191d;color:#e9dfe2;padding:60px 0 24px}
 .footer-grid{display:grid;grid-template-columns:1.3fr .8fr 1.1fr .8fr;gap:40px}

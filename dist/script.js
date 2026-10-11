@@ -74,12 +74,30 @@ modal?.addEventListener('click', (e) => {
 });
 
 const leadForm = document.getElementById('lead-form');
+const phoneInput = document.getElementById('phone');
+const phoneError = document.getElementById('phone-error');
+phoneInput?.addEventListener('input', () => {
+  phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
+  phoneError?.setAttribute('hidden', '');
+});
 leadForm?.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
+  const phone = (phoneInput?.value || '').replace(/\D/g, '');
   const course = document.getElementById('course').value;
+  if (!/^[6-9]\d{9}$/.test(phone)) {
+    phoneError?.removeAttribute('hidden');
+    phoneInput?.focus();
+    return;
+  }
   trackEvent('lead_submit', { course });
+  try {
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ 'form-name': 'admissions', name, phone, course }).toString()
+    });
+  } catch (_) { /* Netlify record must never block the WhatsApp redirect. */ }
   const msg = `Hi Shringar Makeup Academy,\nMy name is ${name}.\nPhone: ${phone}\nI am interested in: ${course}.\nPlease share admission details.`;
   window.open(`https://wa.me/916304071731?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
 });

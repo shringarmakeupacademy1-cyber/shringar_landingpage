@@ -348,11 +348,14 @@
             <a href="https://www.google.com/maps/search/?api=1&query=Opposite+Konark+Theater+Near+Dilsukhnagar+Metro+Station+Hyderabad" target="_blank" rel="noopener">Opp. Konark Theater, Near Dilsukhnagar Metro, Hyderabad</a>
           </div>
         </div>
-        <form class="lead-form" id="lead-form">
-          <label>Name<input type="text" id="name" required placeholder="Your name" /></label>
-          <label>Phone number<input type="tel" id="phone" required placeholder="Your phone number" /></label>
+        <form class="lead-form" id="lead-form" name="admissions" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="admissions" />
+          <p hidden><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+          <label>Name<input type="text" id="name" name="name" required placeholder="Your name" /></label>
+          <label>Phone number<input type="tel" id="phone" name="phone" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" placeholder="10-digit mobile number" title="Enter a valid 10-digit mobile number" /></label>
+          <small class="form-error" id="phone-error" hidden>Please enter a valid 10-digit mobile number.</small>
           <label>Interested course
-            <select id="course" required>
+            <select id="course" name="course" required>
               <option value="">Select a course</option>
               <option>Professional Makeup Artist Course</option>
               <option>Skin Care / Beauty Therapy Course</option>
@@ -360,7 +363,7 @@
             </select>
           </label>
           <button class="btn btn--cream btn--lg" type="submit">Send enquiry on WhatsApp</button>
-          <small>No online payment. This simply opens WhatsApp with your enquiry.</small>
+          <small>No online payment. This simply opens WhatsApp with your enquiry. By submitting, you agree to be contacted on call/WhatsApp.</small>
         </form>
       </div>
     </section>
