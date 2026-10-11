@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <!-- META PIXEL (optional): paste your Meta Pixel base code here when ready.
+       Page events (whatsapp_click, call_click, lead_submit, campaign_view) are
+       already pushed to dataLayer and fbq (if present) by script.js. -->
 </head>
 <body>
   <div class="topbar">
@@ -28,6 +31,7 @@
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="#courses">Courses</a>
+        <a href="#batches">Batches</a>
         <a href="#why">Why Shringar</a>
         <a href="#business">Business Kit</a>
         <a href="#students">Students</a>
@@ -41,6 +45,7 @@
     </div>
     <div class="mobile-nav" hidden>
       <a href="#courses">Courses</a>
+      <a href="#batches">Batches</a>
       <a href="#why">Why Shringar</a>
       <a href="#business">Business Kit</a>
       <a href="#students">Students</a>
@@ -77,6 +82,13 @@
       </div>
     </section>
 
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <div class="ribbon-half"><span>Admissions Open</span><i>✦</i><span>100% Placement Support</span><i>✦</i><span>Makeup + Skin Combo — ₹30,000</span><i>✦</i><span>Limited Seats Per Batch</span><i>✦</i></div>
+        <div class="ribbon-half"><span>Admissions Open</span><i>✦</i><span>100% Placement Support</span><i>✦</i><span>Makeup + Skin Combo — ₹30,000</span><i>✦</i><span>Limited Seats Per Batch</span><i>✦</i></div>
+      </div>
+    </div>
+
     <section class="trust-strip">
       <div class="wrap trust-grid">
         <div class="trust-item"><span class="icon">✦</span><div><strong>Hands-On Practice</strong><small>Learn by doing, not just watching</small></div></div>
@@ -86,17 +98,74 @@
       </div>
     </section>
 
+    <section class="batches section-pad" id="batches">
+      <!-- Batch dates are not fixed yet: the panel shows "starts soon" and hides
+           the countdown. When dates are confirmed, set data-batch-date="2026-11-01T10:00"
+           on the panel below and the date, countdown and WhatsApp message activate. -->
+      <div class="wrap batch-panel reveal" id="batch-panel" data-batch-date="2026-10-26T10:00">
+        <div class="batch-copy">
+          <div class="eyebrow eyebrow--light"><span></span> Admissions · Next Batch</div>
+          <h2>Next batch starts <em id="batch-date">soon</em>.</h2>
+          <p>Small classroom batches with hands-on practice. Choose the morning (10 AM–1 PM) or afternoon (2 PM–5 PM) session.</p>
+          <p class="batch-tba" id="batch-tba">Batch dates will be announced shortly — reserve early to lock one of the 6 seats.</p>
+          <div class="batch-meta">
+            <span class="seats-pill">Only 6 seats left</span>
+            <span class="batch-note">New batches every month</span>
+          </div>
+        </div>
+        <div class="batch-side">
+          <div class="countdown" role="timer" aria-label="Countdown to the next batch">
+            <div><strong id="cd-days">00</strong><small>Days</small></div>
+            <div><strong id="cd-hours">00</strong><small>Hours</small></div>
+            <div><strong id="cd-mins">00</strong><small>Mins</small></div>
+            <div><strong id="cd-secs">00</strong><small>Secs</small></div>
+          </div>
+          <div class="batch-actions">
+            <a class="btn btn--cream btn--lg" id="batch-whatsapp" href="https://wa.me/916304071731?text=Hi%20Shringar%20Makeup%20Academy%2C%20I%20want%20to%20reserve%20a%20seat%20in%20the%20next%20batch.%20Please%20share%20admission%20details." target="_blank" rel="noopener">Reserve my seat</a>
+            <a class="btn btn--outline-light btn--lg" href="tel:+916304071731">Call admissions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="courses section-pad" id="courses">
       <div class="wrap">
         <div class="section-heading reveal">
           <div class="eyebrow"><span></span> CHOOSE YOUR PATH</div>
-          <h2>Three ways to begin your beauty career.</h2>
-          <p>Start with a focused skill course or choose the complete cosmetology path. Each course is designed around practical learning and career confidence.</p>
+          <h2>Four ways to begin your beauty career.</h2>
+          <p>Start with a focused skill course, save with the Makeup + Skin combo, or choose the complete cosmetology path. Each course is designed around practical learning and career confidence.</p>
         </div>
+
+        <article class="combo-card reveal">
+          <div class="combo-body">
+            <div class="combo-pills"><span class="pill pill--gold">Best Value · Limited Offer</span><span class="pill">100% Placement</span></div>
+            <h3>Makeup + Skin Combined Course</h3>
+            <p>Both career skills in one batch — makeup artistry plus beauty therapy — for less than the separate fees.</p>
+            <div class="combo-lists">
+              <div><strong>Makeup</strong>
+                <ul><li>Basic to bridal looks</li><li>Hairstyling &amp; saree draping</li><li>Groom makeup &amp; portfolio</li></ul>
+              </div>
+              <div><strong>Skin</strong>
+                <ul><li>Waxing &amp; threading</li><li>Facials, HydraFacial &amp; de-tan</li><li>Manicure, pedicure &amp; hands-on practice</li></ul>
+              </div>
+            </div>
+            <div class="combo-price">
+              <span class="combo-now">₹30,000<small>combined fee</small></span>
+              <span class="combo-save">Save ₹10,000 vs separate courses</span>
+            </div>
+            <div class="combo-actions">
+              <a class="btn btn--cream btn--lg" href="https://wa.me/916304071731?text=Hi%20Shringar%20Makeup%20Academy%2C%20I%20want%20to%20join%20the%20Makeup%20%2B%20Skin%20Combined%20Course%20for%20Rs.%2030%2C000.%20Please%20share%20admission%20details." target="_blank" rel="noopener">Claim this offer</a>
+              <button class="text-link course-details" data-course="combo">View full course <span>→</span></button>
+            </div>
+          </div>
+          <div class="combo-visual">
+            <img loading="lazy" src="assets/campaign-makeup-skin-combo.png" alt="Shringar Makeup Academy Makeup plus Skin combined course offer poster" />
+          </div>
+        </article>
 
         <div class="course-grid">
           <article class="course-card course-card--makeup reveal">
-            <div class="course-image"><img src="assets/course-makeup.png" alt="Professional makeup artist applying makeup during beauty training" /></div>
+            <div class="course-image"><img loading="lazy" src="assets/course-makeup.png" alt="Professional makeup artist applying makeup during beauty training" /></div>
             <div class="course-body">
               <div class="course-topline"><span class="pill">30-Day Intensive</span><span class="price">₹20,000</span></div>
               <h3>Professional Makeup Artist Course</h3>
@@ -115,7 +184,7 @@
           </article>
 
           <article class="course-card course-card--skin reveal reveal--delay">
-            <div class="course-image"><img src="assets/course-skincare.png" alt="Beauty therapist providing a professional facial skin treatment" /></div>
+            <div class="course-image"><img loading="lazy" src="assets/course-skincare.png" alt="Beauty therapist providing a professional facial skin treatment" /></div>
             <div class="course-body">
               <div class="course-topline"><span class="pill">Beauty Therapy</span><span class="price">₹20,000</span></div>
               <h3>Skin Care / Beauty Therapy</h3>
@@ -134,7 +203,7 @@
           </article>
 
           <article class="course-card course-card--cosmo reveal reveal--delay2">
-            <div class="course-image"><img src="assets/course-cosmetology.png" alt="Cosmetology course visual featuring makeup, skin care, nails, airbrush makeup and flower making" /></div>
+            <div class="course-image"><img loading="lazy" src="assets/course-cosmetology.png" alt="Cosmetology course visual featuring makeup, skin care, nails, airbrush makeup and flower making" /></div>
             <div class="course-body">
               <div class="course-topline"><span class="pill pill--gold">Complete Program</span><span class="price">₹40,000</span></div>
               <h3>Cosmetology Course</h3>
@@ -158,9 +227,9 @@
     <section class="why section-pad" id="why">
       <div class="wrap why-grid">
         <div class="why-photo reveal">
-          <img class="why-photo__main" src="assets/why-shringar-classroom.png" alt="Shringar trainer guiding students in the academy classroom" />
+          <img class="why-photo__main" loading="lazy" src="assets/why-shringar-classroom.png" alt="Shringar trainer guiding students in the academy classroom" />
           <div class="why-photo__inset">
-            <img src="assets/why-shringar-practical.png" alt="Shringar student practising professional makeup application" />
+            <img loading="lazy" src="assets/why-shringar-practical.png" alt="Shringar student practising professional makeup application" />
           </div>
           <div class="photo-note"><strong>Real students.</strong><span>Real practice. Real confidence.</span></div>
         </div>
@@ -192,7 +261,7 @@
           <a class="btn btn--cream btn--lg" href="#contact">Ask about the Business Starter Kit</a>
         </div>
         <div class="business-visual reveal reveal--delay">
-          <img class="business-image" src="assets/business-starter-workspace.png" alt="Beauty entrepreneur workspace with professional products, client service, social media tools, laptop and business planning" />
+          <img class="business-image" loading="lazy" src="assets/business-starter-workspace.png" alt="Beauty entrepreneur workspace with professional products, client service, social media tools, laptop and business planning" />
           <div class="business-stat"><strong>Skill → Client → Career</strong><span>A practical path from learning to earning</span></div>
         </div>
       </div>
@@ -234,7 +303,7 @@
       <div class="wrap academy-grid">
         <div class="academy-visual reveal">
           <div class="academy-collage">
-            <img class="academy-experience-image" src="assets/academy-classroom-training.png" alt="Shringar trainer teaching beauty students in the academy classroom beside the whiteboard" />
+            <img class="academy-experience-image" loading="lazy" src="assets/academy-classroom-training.png" alt="Shringar trainer teaching beauty students in the academy classroom beside the whiteboard" />
           </div>
         </div>
         <div class="academy-copy reveal reveal--delay">
@@ -306,6 +375,8 @@
     </div>
     <div class="wrap footer-bottom"><span>© 2026 Shringar Makeup Academy</span><span>Learn · Practice · Transform</span></div>
   </footer>
+
+  <button id="to-top" class="to-top" type="button" aria-label="Back to top">↑</button>
 
   <div class="mobile-cta">
     <a href="tel:+916304071731">Call</a>

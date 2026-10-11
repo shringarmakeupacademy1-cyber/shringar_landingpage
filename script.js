@@ -41,6 +41,13 @@ const courseData = {
     price: '₹40,000',
     text: 'A complete career-focused program bringing together multiple beauty disciplines in one learning journey.',
     points: ['Makeup','Skin Care','Nail Art','Flower Making','Airbrush Makeup','15+ Hairstyles','5 Saree Draping Styles','Hands-On Practice','Professional Range Products','Business Starter Kit','Career Guidance','Lifetime Support','Shringar Professional Certificate']
+  },
+  combo: {
+    kicker: 'Makeup + Skin Combined Course',
+    title: 'Two Career Skills, One Batch',
+    price: '₹30,000',
+    text: 'Makeup artistry plus beauty therapy in a single batch — with placement support — for less than the separate course fees (₹40,000).',
+    points: ['Basic to Bridal Makeup','15+ Hairstyles','Saree Draping Styles','Groom Makeup & Portfolio','Waxing & Threading','Facials & HydraFacial','De-Tan','Manicure & Pedicure','100% Placement Support','Business Starter Kit','Lifetime Support','Professional Certificate']
   }
 };
 
@@ -72,8 +79,31 @@ leadForm?.addEventListener('submit', (e) => {
   const name = document.getElementById('name').value.trim();
   const phone = document.getElementById('phone').value.trim();
   const course = document.getElementById('course').value;
+  trackEvent('lead_submit', { course });
   const msg = `Hi Shringar Makeup Academy,\nMy name is ${name}.\nPhone: ${phone}\nI am interested in: ${course}.\nPlease share admission details.`;
   window.open(`https://wa.me/916304071731?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+});
+
+// Lightweight analytics layer: pushes events to dataLayer and Meta Pixel (fbq)
+// when present. Safe no-op if blockers remove them. Events: whatsapp_click,
+// call_click, lead_submit, campaign_view. Paste the Meta Pixel base code in
+// index.html <head> to activate Meta reporting; nothing else needs changing.
+function trackEvent(name, params) {
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({ event: name }, params));
+    if (typeof window.fbq === 'function') window.fbq('trackCustom', name, params || {});
+  } catch (_) { /* Analytics must never break the page. */ }
+}
+
+document.addEventListener('click', (event) => {
+  const wa = event.target.closest('a[href*="wa.me"]');
+  if (wa) {
+    trackEvent('whatsapp_click', { link_text: wa.textContent.trim().slice(0, 80) });
+    return;
+  }
+  const tel = event.target.closest('a[href^="tel:"]');
+  if (tel) trackEvent('call_click', { link_text: tel.textContent.trim().slice(0, 80) });
 });
 
 const testimonialModal = document.getElementById('testimonial-modal');
@@ -106,6 +136,12 @@ testimonialModal?.addEventListener('cancel', event => {
   closeTestimonial();
 });
 
+const toTop = document.getElementById('to-top');
+window.addEventListener('scroll', () => {
+  toTop?.classList.toggle('show', window.scrollY > 600);
+}, { passive: true });
+toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
 const campaignModal = document.getElementById('campaign-modal');
 const campaignClose = document.querySelector('.campaign-close');
 function closeCampaign() {
@@ -118,6 +154,57 @@ campaignModal?.addEventListener('click', (event) => {
 window.addEventListener('load', () => {
   if (!campaignModal || campaignModal.open) return;
   window.setTimeout(() => {
-    if (!campaignModal.open) campaignModal.showModal();
+    if (!campaignModal.open) {
+      campaignModal.showModal();
+      trackEvent('campaign_view');
+    }
   }, 900);
 });
+
+// Next-batch countdown. While no date is fixed, the panel stays in "starts
+// soon" mode (countdown hidden). To activate, set data-batch-date="2026-11-01T10:00"
+// on #batch-panel: the date, countdown and dated WhatsApp message appear.
+(function initBatchCountdown() {
+  const panel = document.getElementById('batch-panel');
+  if (!panel) return;
+  const dateEl = document.getElementById('batch-date');
+  const countdownEl = panel.querySelector('.countdown');
+  const tbaEl = document.getElementById('batch-tba');
+  const waBtn = document.getElementById('batch-whatsapp');
+
+  let target = null;
+  if (panel.dataset.batchDate) {
+    const pinned = new Date(panel.dataset.batchDate);
+    if (!isNaN(pinned)) target = pinned;
+  }
+
+  if (!target) {
+    if (dateEl) dateEl.textContent = 'soon';
+    countdownEl?.setAttribute('hidden', '');
+    tbaEl?.removeAttribute('hidden');
+    return;
+  }
+  tbaEl?.setAttribute('hidden', '');
+
+  const daysEl = document.getElementById('cd-days');
+  const hoursEl = document.getElementById('cd-hours');
+  const minsEl = document.getElementById('cd-mins');
+  const secsEl = document.getElementById('cd-secs');
+  const pad = (n) => String(n).padStart(2, '0');
+
+  function render() {
+    const diff = Math.max(0, target - new Date());
+    daysEl.textContent = pad(Math.floor(diff / 86400000));
+    hoursEl.textContent = pad(Math.floor(diff / 3600000) % 24);
+    minsEl.textContent = pad(Math.floor(diff / 60000) % 60);
+    secsEl.textContent = pad(Math.floor(diff / 1000) % 60);
+  }
+
+  const dateStr = target.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  dateEl.textContent = dateStr;
+  if (waBtn) {
+    waBtn.href = `https://wa.me/916304071731?text=${encodeURIComponent(`Hi Shringar Makeup Academy, I want to reserve a seat in the next batch starting ${dateStr}. Please share admission details.`)}`;
+  }
+  render();
+  window.setInterval(render, 1000);
+})();
